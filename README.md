@@ -19,13 +19,13 @@ Features:
 
 ### Dependency
 
-[Download from Maven Central (.aar)](https://oss.sonatype.org/index.html#view-repositories;releases~browsestorage~/com/github/danielgindi/eval/1.0.0/helpers-1.0.0.aar)
+[Download from Maven Central (.jar)](https://oss.sonatype.org/index.html#view-repositories;releases~browsestorage~/com/github/danielgindi/eval/1.0.1/helpers-1.0.1.jar)
 
 **or**
 
 ```java
 	dependencies {
-    	compile 'com.github.danielgindi:eval:1.0.0'
+    	compile 'com.github.danielgindi:eval:1.0.1'
 	}
 ```
 

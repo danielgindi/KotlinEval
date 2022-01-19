@@ -18,7 +18,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 def isReleaseBuild() {
-    return VERSION_NAME.contains("SNAPSHOT") == false
+    return !VERSION_NAME.contains("SNAPSHOT")
 }
 
 def getReleaseRepositoryUrl() {
@@ -39,11 +39,6 @@ def getRepositoryPassword() {
     return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
 }
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.java.srcDirs
-    classifier "sources"
-}
-
 afterEvaluate { project ->
     publishing {
         publications {
@@ -52,7 +47,7 @@ afterEvaluate { project ->
                 artifactId = POM_ARTIFACT_ID
                 version = VERSION_NAME
 
-                artifact(sourceJar)
+                artifact(jar)
 
                 pom {
                     name = POM_NAME

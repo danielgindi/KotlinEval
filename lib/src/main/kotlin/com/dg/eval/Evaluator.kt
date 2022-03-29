@@ -34,10 +34,13 @@ object Evaluator
                 end = tokens.size
                 continue
             }
+
+            // When we have something like this: "5*-1", we will move the "-" to be part of the number token.
             if (token.type == TokenType.Number &&
                     prevToken.type == TokenType.Op &&
                     (prevToken.value == "-" || prevToken.value == "+") &&
-                    ((i > 1 && tokens[i - 2].type == TokenType.Op) || i == 1))
+                    ((i > 1 && tokens[i - 2].type == TokenType.Op &&
+                    !configuration.suffixOperators.contains(tokens[i - 2].value)) || i == 1))
             {
                 if (prevToken.value == "-")
                 {

@@ -36,6 +36,10 @@ class EvalTest
                 value = 345.0 / 5.0.pow(12.0 / 9.0) * 124.0 / 41.0 * 12.0,
                 config = config)
 
+        testExpr("2*5!+3",
+                value = 243.0,
+                config = config)
+
         testExpr("-5&&2==7&&-4>=-5>>-8*-5",
                 value = (-5 != 0 && 2 == 7 && -4 >= (-5).shr(-8 * -5)),
                 config = config)

@@ -139,7 +139,7 @@ open class DoubleEvalConfiguration(
         var s = 1
         for (i in 2..nn.toInt())
             s *= i
-        return s
+        return s.toDouble()
     }
 
     override fun mod(a: Any?, b: Any?): Any?

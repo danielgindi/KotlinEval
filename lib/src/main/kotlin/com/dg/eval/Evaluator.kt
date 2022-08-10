@@ -809,7 +809,7 @@ object Evaluator
         throw ParseException("An unexpected error occurred while evaluating expression", -1)
     }
 
-    private fun evaluateFunction(token: Token, configuration: EvalConfiguration): Any
+    private fun evaluateFunction(token: Token, configuration: EvalConfiguration): Any?
     {
         val fname = token.value ?: ""
 
@@ -826,27 +826,25 @@ object Evaluator
             }
         }
 
-        var value: Any?
-
         val functions = configuration.functions
         if (functions != null)
         {
-            value = functions[fname]?.invoke(args)
-            if (value != null)
-                return value
+            var fn = functions[fname]
+            if (fn != null)
+                return fn.invoke(args)
 
-            value = functions[fname.uppercase()]?.invoke(args)
-            if (value != null)
-                return value
+            fn = functions[fname.uppercase()]
+            if (fn != null)
+                return fn.invoke(args)
         }
 
-        value = configuration.genericFunctions[fname]?.invoke(args)
-        if (value != null)
-            return value
+        var fn = configuration.genericFunctions[fname]
+        if (fn != null)
+            return fn.invoke(args)
 
-        value = configuration.genericFunctions[fname.uppercase()]?.invoke(args)
-        if (value != null)
-            return value
+        fn = configuration.genericFunctions[fname.uppercase()]
+        if (fn != null)
+            return fn.invoke(args)
 
         throw ParseException("Function named \"${fname}\" was not found", -1)
     }

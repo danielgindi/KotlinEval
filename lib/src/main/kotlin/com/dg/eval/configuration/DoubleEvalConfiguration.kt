@@ -79,9 +79,23 @@ open class DoubleEvalConfiguration(
             return if (b is Double)
             {
                 a + (stringifyDoubleFormatter.format(b) ?: "$b")
-            } else
+            }
+            else
             {
                 a + (if (b == null) "" else "$b")
+            }
+        }
+        else if (b is String)
+        {
+            // do not convert them to numbers by mistake.
+            // multiplication could be used to cast to numbers.
+            return if (a is Double)
+            {
+                b + (stringifyDoubleFormatter.format(a) ?: "$a")
+            }
+            else
+            {
+                b + (if (a == null) "" else "$a")
             }
         }
 

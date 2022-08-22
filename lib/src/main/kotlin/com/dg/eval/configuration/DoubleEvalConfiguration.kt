@@ -91,11 +91,11 @@ open class DoubleEvalConfiguration(
             // multiplication could be used to cast to numbers.
             return if (a is Double)
             {
-                b + (stringifyDoubleFormatter.format(a) ?: "$a")
+                (stringifyDoubleFormatter.format(a) ?: "$a") + b
             }
             else
             {
-                b + (if (a == null) "" else "$a")
+                (if (a == null) "" else "$a") + b
             }
         }
 

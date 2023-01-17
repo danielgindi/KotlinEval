@@ -425,7 +425,7 @@ open class EvalConfiguration :
 
     override fun factorial(n: Any?): Any?
     {
-        if (n is Double)
+        if (n is Number)
         {
             var s = 1
             for (i in 2..n.toInt())

@@ -93,6 +93,11 @@ open class EvalConfiguration :
     var constants: MutableMap<String, Any?>? = null
     var functions: MutableMap<String, EvalFunctionBlock>? = null
 
+    /**
+     * A provider for constants that are not defined in the configuration.
+     * This is useful for providing constants that are not known at compile time.
+     * Return <code>Evaluator.ConstProviderDefault</code> to fall back to the default behavior.
+     */
     var constProvider: ConstProvider? = null
 
     @Suppress("unused")

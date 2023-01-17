@@ -5,6 +5,8 @@ import java.text.ParseException
 
 object Evaluator
 {
+    val ConstProviderDefault: Any = ConstProviderDefaultFallback()
+
     @Suppress("MemberVisibilityCanBePrivate")
     fun compile(expression: String, configuration: EvalConfiguration): CompiledExpression
     {
@@ -644,29 +646,28 @@ object Evaluator
                 if (tokenValue == null)
                     return null
 
-                var value = configuration.constProvider?.invoke(tokenValue)
-                if (value != null)
-                    return value
+                if (configuration.constProvider != null)
+                {
+                    val value = configuration.constProvider?.invoke(tokenValue)
+                    if (value != ConstProviderDefault)
+                        return value
+                }
 
                 val constants = configuration.constants
                 if (constants != null)
                 {
-                    value = constants[tokenValue]
-                    if (value != null)
-                        return value
+                    if (constants.containsKey(tokenValue))
+                        return constants[tokenValue]
 
-                    value = constants[tokenValue.uppercase()]
-                    if (value != null)
-                        return value
+                    if (constants.containsKey(tokenValue.uppercase()))
+                        return constants[tokenValue.uppercase()]
                 }
 
-                value = configuration.genericConstants[tokenValue]
-                if (value != null)
-                    return value
+                if (configuration.genericConstants.containsKey(tokenValue))
+                    return configuration.genericConstants[tokenValue]
 
-                value = configuration.genericConstants[tokenValue.uppercase()]
-                if (value != null)
-                    return value
+                if (configuration.genericConstants.containsKey(tokenValue.uppercase()))
+                    return configuration.genericConstants[tokenValue.uppercase()]
 
                 return null
             }
@@ -848,4 +849,6 @@ object Evaluator
 
         throw ParseException("Function named \"${fname}\" was not found", -1)
     }
+
+    private class ConstProviderDefaultFallback
 }

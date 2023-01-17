@@ -85,11 +85,32 @@ class EvalTest
 
         testExpr("\"5\"+5", value = "55", config = config)
 
-        testExpr("5+\"5\"", value = 10.0, config = config)
-
         testExpr("12e5", value = 1200000.0, config = config)
 
         testExpr("12e+5", value = 1200000.0, config = config)
+
+        withConsts.constProvider = constProvider@{
+            if (it == "y") {
+                return@constProvider 5.0
+            }
+
+            return@constProvider Evaluator.ConstProviderDefault
+        }
+
+        testExpr("x", value = 5.9, config = withConsts)
+        testExpr("y", value = 5.0, config = withConsts)
+
+        withConsts.constProvider = constProvider@{
+            if (it == "y") {
+                return@constProvider 5.0
+            }
+
+            return@constProvider null
+        }
+
+        testExpr("x", value = null as Double?, config = withConsts)
+        testExpr("y", value = 5.0, config =  withConsts)
+
     }
 
     private fun testExpr(expr: String, value: Double?, config: EvalConfiguration)

@@ -25,7 +25,7 @@ Features:
 
 ```java
 	dependencies {
-    	compile 'com.github.danielgindi:eval:1.0.1'
+    	compile 'com.github.danielgindi:eval:1.0.9'
 	}
 ```
 

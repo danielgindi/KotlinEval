@@ -3,13 +3,13 @@ apply plugin: 'kotlin'
 apply from: 'gradle-maven-push.gradle'
 
 subprojects {
-    tasks.all {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-        kotlinOptions {
-            jvmTarget = '1.8'
-        }
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
     }
+}
+
+kotlin {
+    jvmToolchain(8)
 }
 
 repositories {

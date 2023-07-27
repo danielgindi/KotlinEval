@@ -7,7 +7,6 @@ import kotlin.math.pow
 
 class EvalTest
 {
-    @Suppress("SimplifyBooleanWithConstants")
     @Test
     fun basicEvalTests()
     {

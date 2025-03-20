@@ -43,13 +43,9 @@ android {
     }
 }
 
-kotlin {
-    jvmToolchain(8)
-}
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.1'
 }
 
 apply from: '../gradle-maven-push.gradle'

@@ -312,21 +312,38 @@ open class EvalConfiguration :
     {
         if (a is Double && b is Double)
             return a + b
+        if ((a ?: b) is Double && (a == null || b == null))
+            return a
 
         if (a is Float && b is Float)
             return a + b
 
+        if ((a ?: b) is Float && (a == null || b == null))
+            return a
+
         if (a is Int && b is Int)
             return a + b
+
+        if ((a ?: b) is Int && (a == null || b == null))
+            return a
 
         if (a is Long && b is Long)
             return a + b
 
+        if ((a ?: b) is Long && (a == null || b == null))
+            return a
+
         if (a is BigDecimal && b is BigDecimal)
             return a + b
 
+        if ((a ?: b) is BigDecimal && (a == null || b == null))
+            return a
+
         if (a is BigInteger && b is BigInteger)
             return a + b
+
+        if ((a ?: b) is BigInteger && (a == null || b == null))
+            return a
 
         throw IllegalArgumentException("add(a,b) is not implemented for this kind of value")
     }
@@ -335,21 +352,45 @@ open class EvalConfiguration :
     {
         if (a is Double && b is Double)
             return a - b
+        if (a is Double && b == null)
+            return a
+        if (b is Double && a == null)
+            return -b
 
         if (a is Float && b is Float)
             return a - b
+        if (a is Float && b == null)
+            return a
+        if (b is Float && a == null)
+            return -b
 
         if (a is Int && b is Int)
             return a - b
+        if (a is Int && b == null)
+            return a
+        if (b is Int && a == null)
+            return -b
 
         if (a is Long && b is Long)
             return a - b
+        if (a is Long && b == null)
+            return a
+        if (b is Long && a == null)
+            return -b
 
         if (a is BigDecimal && b is BigDecimal)
             return a - b
+        if (a is BigDecimal && b == null)
+            return a
+        if (b is BigDecimal && a == null)
+            return -b
 
         if (a is BigInteger && b is BigInteger)
             return a - b
+        if (a is BigInteger && b == null)
+            return a
+        if (b is BigInteger && a == null)
+            return -b
 
         throw IllegalArgumentException("subtract(a,b) is not implemented for this kind of value")
     }
